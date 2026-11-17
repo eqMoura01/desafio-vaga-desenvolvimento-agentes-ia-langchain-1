@@ -1,0 +1,12 @@
+services:
+  franq:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DB_PATH: /data/anexo_desafio_1.db
+    volumes:
+      - ../anexo_desafio_1.db:/data/anexo_desafio_1.db:ro

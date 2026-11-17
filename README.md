@@ -1,4 +1,4 @@
-# Mesa
+# FRANQ
 
 Assistente de dados do desafio técnico 1. A pessoa pergunta em português, o sistema lê o schema do SQLite na hora, escreve a consulta, executa em modo somente leitura e, se o banco recusar o SQL, corrige e tenta de novo. A tela mostra o número, o gráfico ou a tabela, e a trilha de consultas.
 

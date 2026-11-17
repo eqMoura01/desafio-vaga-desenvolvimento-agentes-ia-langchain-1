@@ -3,7 +3,7 @@ import re
 import pandas as pd
 import plotly.express as px
 
-COLORS = ["#1F6F6A", "#C4622D", "#3D4C6B", "#8C4A3A", "#6E8B3D", "#8A6A2F"]
+COLORS = ["#6c7de2", "#3d4fbf", "#8b7cff", "#5aa0e6", "#2f3d8f", "#c07cff"]
 _PERIOD = re.compile(r"\d{4}-\d{2}(-\d{2})?$")
 
 
@@ -40,14 +40,14 @@ def build_figure(viz: dict, columns: list[str], rows: list[dict]):
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Atkinson Hyperlegible, Segoe UI, sans-serif", "color": "#E7E1D5", "size": 13},
-        title={"text": title, "font": {"family": "Schibsted Grotesk, Segoe UI, sans-serif", "size": 18, "color": "#F4F0E6"}},
+        font={"family": "Outfit, Segoe UI, sans-serif", "color": "#1f1f1f", "size": 13},
+        title={"text": title, "font": {"family": "Outfit, Segoe UI, sans-serif", "size": 16, "color": "#1f1f1f"}},
         margin={"l": 8, "r": 8, "t": 48 if title else 16, "b": 8},
         legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "x": 0},
         colorway=COLORS,
     )
-    fig.update_xaxes(showgrid=False, title=None)
-    fig.update_yaxes(gridcolor="#2A4650", title=None)
+    fig.update_xaxes(showgrid=False, title=None, linecolor="#e6e8f0")
+    fig.update_yaxes(gridcolor="#eef0f6", title=None)
     return fig
 
 
