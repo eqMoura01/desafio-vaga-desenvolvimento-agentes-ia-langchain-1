@@ -1,0 +1,8 @@
+langgraph>=0.2.50
+langchain-openai>=0.2.0
+langchain-core>=0.3.0
+streamlit>=1.40
+pandas>=2.2
+plotly>=5.22
+python-dotenv>=1.0
+pydantic>=2.6
