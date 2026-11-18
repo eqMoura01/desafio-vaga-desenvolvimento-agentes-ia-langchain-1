@@ -15,7 +15,17 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 
-Preencha `OPENAI_API_KEY` no `.env`. Para Groq, OpenRouter, Ollama ou outro endpoint compatível com a API da OpenAI, use também `OPENAI_BASE_URL` e `OPENAI_MODEL`.
+Preencha `OPENAI_API_KEY` no `.env`. O valor não pode ficar vazio, mas não precisa ser uma chave da OpenAI. Groq, OpenRouter ou outro endpoint compatível entram com `OPENAI_BASE_URL` e `OPENAI_MODEL`.
+
+O Ollama local não gera chave ao subir nem ao rodar um modelo. O servidor em `http://localhost:11434` não confere esse campo. A biblioteca da OpenAI é que recusa a variável vazia, então qualquer texto serve. Exemplo com um modelo já baixado:
+
+```
+OPENAI_API_KEY=ollama
+OPENAI_BASE_URL=http://localhost:11434/v1
+OPENAI_MODEL=nome-do-modelo-baixado
+```
+
+A chave que o Ollama emite existe só na nuvem, em `https://ollama.com`, e você cria essa chave na conta. Ela não aparece sozinha quando um modelo sobe. `pytest` não chama o modelo, então roda sem chave. A tela abre mesmo assim: a barra mostra as tabelas, e a primeira pergunta devolve a mensagem pedindo a chave.
 
 ```powershell
 streamlit run app.py
@@ -50,8 +60,8 @@ pytest
 
 | Variável | Padrão | Uso |
 |---|---|---|
-| `OPENAI_API_KEY` | vazio | Obrigatória. Sem ela o agente não começa. |
-| `OPENAI_BASE_URL` | vazio | Endpoint compatível. Vazio usa a OpenAI. |
+| `OPENAI_API_KEY` | vazio | Obrigatória para perguntar. Não precisa ser da OpenAI. No Ollama local, `ollama` basta: o servidor ignora o valor. |
+| `OPENAI_BASE_URL` | vazio | Endpoint compatível. Vazio usa a OpenAI. No Ollama local, `http://localhost:11434/v1`. |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Modelo do cliente. Temperatura 0. |
 | `DB_PATH` | `../anexo_desafio_1.db` | Caminho do SQLite. Absoluto vale como está. Relativo resolve a partir da pasta `desafio1`. |
 | `MAX_QUERIES` | `5` | Consultas por pergunta. O mínimo efetivo é 1. |
