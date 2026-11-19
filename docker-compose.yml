@@ -7,6 +7,6 @@ services:
       - path: .env
         required: false
     environment:
-      DB_PATH: /data/anexo_desafio_1.db
+      DB_PATH: /app/data/anexo_desafio_1.db
     volumes:
-      - ../anexo_desafio_1.db:/data/anexo_desafio_1.db:ro
+      - ./data:/app/data:ro

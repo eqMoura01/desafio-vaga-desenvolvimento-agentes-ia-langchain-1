@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(PACKAGE_ROOT / ".env")
 
-DEFAULT_DB_PATH = PACKAGE_ROOT.parent / "anexo_desafio_1.db"
+DEFAULT_DB_PATH = PACKAGE_ROOT / "data" / "anexo_desafio_1.db"
 
 
 def db_path() -> Path:

@@ -2,7 +2,7 @@
 
 Assistente de dados do desafio técnico 1. A pessoa pergunta em português. O sistema lê o schema do SQLite na hora, escreve uma consulta, executa em modo somente leitura e, se o banco recusar o SQL ou o complemento da conversa perder um filtro, devolve o erro ao modelo para ele corrigir. A tela mostra a frase, o número, o gráfico ou a tabela, e a consulta que chegou no resultado.
 
-O PDF descreve as tabelas `clientes`, `compras`, `suporte` e `campanhas_marketing`. O arquivo `anexo_desafio_1.db` também tem, em `clientes`, as colunas `valor_total_gasto` e `data_ultima_compra`, e as chaves estrangeiras de `cliente_id`. Nada disso está fixo no código: a descrição entra no prompt a cada pergunta.
+O PDF descreve as tabelas `clientes`, `compras`, `suporte` e `campanhas_marketing`. O arquivo `data/anexo_desafio_1.db` também tem, em `clientes`, as colunas `valor_total_gasto` e `data_ultima_compra`, e as chaves estrangeiras de `cliente_id`. Nada disso está fixo no código: a descrição entra no prompt a cada pergunta.
 
 ## Executar
 
@@ -47,7 +47,7 @@ Com o Docker Desktop aberto, na mesma pasta:
 docker compose up --build
 ```
 
-O Compose publica a porta `8501`, lê o `.env` se ele existir e monta `../anexo_desafio_1.db` em `/data/anexo_desafio_1.db`, somente leitura. `DB_PATH` dentro do container aponta para esse arquivo, então um caminho do Windows no `.env` não entra na imagem. A chave também não entra na imagem: ela só existe no processo, via `env_file`.
+O Compose publica a porta `8501`, lê o `.env` se ele existir e monta `data/` em `/app/data`, somente leitura. A imagem também copia esse banco. `DB_PATH` dentro do container aponta para `/app/data/anexo_desafio_1.db`, então um caminho do Windows no `.env` não entra na imagem. A chave também não entra na imagem: ela só existe no processo, via `env_file`.
 
 Os testes não chamam o modelo:
 
@@ -63,7 +63,7 @@ pytest
 | `OPENAI_API_KEY` | vazio | Obrigatória para perguntar. Não precisa ser da OpenAI. No Ollama local, `ollama` basta: o servidor ignora o valor. |
 | `OPENAI_BASE_URL` | vazio | Endpoint compatível. Vazio usa a OpenAI. No Ollama local, `http://localhost:11434/v1`. |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Modelo do cliente. Temperatura 0. |
-| `DB_PATH` | `../anexo_desafio_1.db` | Caminho do SQLite. Absoluto vale como está. Relativo resolve a partir da pasta `desafio1`. |
+| `DB_PATH` | `data/anexo_desafio_1.db` | Caminho do SQLite, dentro do repositório. Absoluto vale como está. Relativo resolve a partir da pasta `desafio1`. Vazio usa o padrão. |
 | `MAX_QUERIES` | `5` | Consultas por pergunta. O mínimo efetivo é 1. |
 
 O CLI aceita `--db` no lugar de `DB_PATH` só naquela execução. A tela usa `DB_PATH`.
@@ -164,7 +164,8 @@ A conversa vive em `session_state`. "Limpar conversa" zera o histórico. O schem
 | `src/viz.py` | Escolha do desenho e figuras Plotly. |
 | `src/config.py` | `.env`, caminho do banco, modelo e limite de consultas. |
 | `src/cli.py` | `python -m src`. |
-| `docker-compose.yml` | Sobe a tela com o banco montado só para leitura. |
+| `data/anexo_desafio_1.db` | Banco do desafio, versionado na pasta `data`. |
+| `docker-compose.yml` | Sobe a tela com a pasta `data` montada só para leitura. |
 | `tests/` | Schema, validador, consultas de referência, grafo com modelo simulado e a cadeia de complementos. |
 
 ## Consultas de referência
